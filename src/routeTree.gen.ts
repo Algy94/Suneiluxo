@@ -9,104 +9,109 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
-import { Route as IndexRouteImport } from './routes/index'
-import { Route as AdminRouteImport } from './routes/admin'
-import { Route as CarrinhoRouteImport } from './routes/carrinho'
-import { Route as ProdutosRouteImport } from './routes/produtos'
+import { Route as AuthenticatedIndexRouteImport } from './routes/_authenticated/index'
+import { Route as AuthenticatedAdminRouteImport } from './routes/_authenticated/admin'
+import { Route as AuthenticatedCarrinhoRouteImport } from './routes/_authenticated/carrinho'
+import { Route as AuthenticatedProdutosRouteImport } from './routes/_authenticated/produtos'
 
-const IndexRoute = IndexRouteImport.update({
-  id: '/',
+const AuthenticatedIndexRoute = AuthenticatedIndexRouteImport.update({
+  id: '/_authenticated/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
-const AdminRoute = AdminRouteImport.update({
-  id: '/admin',
+const AuthenticatedAdminRoute = AuthenticatedAdminRouteImport.update({
+  id: '/_authenticated/admin',
   path: '/admin',
   getParentRoute: () => rootRouteImport,
 } as any)
-const CarrinhoRoute = CarrinhoRouteImport.update({
-  id: '/carrinho',
+const AuthenticatedCarrinhoRoute = AuthenticatedCarrinhoRouteImport.update({
+  id: '/_authenticated/carrinho',
   path: '/carrinho',
   getParentRoute: () => rootRouteImport,
 } as any)
-const ProdutosRoute = ProdutosRouteImport.update({
-  id: '/produtos',
+const AuthenticatedProdutosRoute = AuthenticatedProdutosRouteImport.update({
+  id: '/_authenticated/produtos',
   path: '/produtos',
   getParentRoute: () => rootRouteImport,
 } as any)
 
 export interface FileRoutesByFullPath {
-  '/': typeof IndexRoute
-  '/admin': typeof AdminRoute
-  '/carrinho': typeof CarrinhoRoute
-  '/produtos': typeof ProdutosRoute
+  '/admin': typeof AuthenticatedAdminRoute
+  '/carrinho': typeof AuthenticatedCarrinhoRoute
+  '/produtos': typeof AuthenticatedProdutosRoute
+  '/': typeof AuthenticatedIndexRoute
 }
 export interface FileRoutesByTo {
-  '/': typeof IndexRoute
-  '/admin': typeof AdminRoute
-  '/carrinho': typeof CarrinhoRoute
-  '/produtos': typeof ProdutosRoute
+  '/admin': typeof AuthenticatedAdminRoute
+  '/carrinho': typeof AuthenticatedCarrinhoRoute
+  '/produtos': typeof AuthenticatedProdutosRoute
+  '/': typeof AuthenticatedIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
-  '/': typeof IndexRoute
-  '/admin': typeof AdminRoute
-  '/carrinho': typeof CarrinhoRoute
-  '/produtos': typeof ProdutosRoute
+  '/_authenticated/admin': typeof AuthenticatedAdminRoute
+  '/_authenticated/carrinho': typeof AuthenticatedCarrinhoRoute
+  '/_authenticated/produtos': typeof AuthenticatedProdutosRoute
+  '/_authenticated/': typeof AuthenticatedIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/admin' | '/carrinho' | '/produtos'
+  fullPaths: '/admin' | '/carrinho' | '/produtos' | '/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/admin' | '/carrinho' | '/produtos'
-  id: '__root__' | '/' | '/admin' | '/carrinho' | '/produtos'
+  to: '/admin' | '/carrinho' | '/produtos' | '/'
+  id:
+    | '__root__'
+    | '/_authenticated/admin'
+    | '/_authenticated/carrinho'
+    | '/_authenticated/produtos'
+    | '/_authenticated/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
-  IndexRoute: typeof IndexRoute
-  AdminRoute: typeof AdminRoute
-  CarrinhoRoute: typeof CarrinhoRoute
-  ProdutosRoute: typeof ProdutosRoute
+  AuthenticatedAdminRoute: typeof AuthenticatedAdminRoute
+  AuthenticatedCarrinhoRoute: typeof AuthenticatedCarrinhoRoute
+  AuthenticatedProdutosRoute: typeof AuthenticatedProdutosRoute
+  AuthenticatedIndexRoute: typeof AuthenticatedIndexRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
-    '/': {
-      id: '/'
+    '/_authenticated/': {
+      id: '/_authenticated/'
       path: '/'
       fullPath: '/'
-      preLoaderRoute: typeof IndexRouteImport
+      preLoaderRoute: typeof AuthenticatedIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/admin': {
-      id: '/admin'
+    '/_authenticated/admin': {
+      id: '/_authenticated/admin'
       path: '/admin'
       fullPath: '/admin'
-      preLoaderRoute: typeof AdminRouteImport
+      preLoaderRoute: typeof AuthenticatedAdminRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/carrinho': {
-      id: '/carrinho'
+    '/_authenticated/carrinho': {
+      id: '/_authenticated/carrinho'
       path: '/carrinho'
       fullPath: '/carrinho'
-      preLoaderRoute: typeof CarrinhoRouteImport
+      preLoaderRoute: typeof AuthenticatedCarrinhoRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/produtos': {
-      id: '/produtos'
+    '/_authenticated/produtos': {
+      id: '/_authenticated/produtos'
       path: '/produtos'
       fullPath: '/produtos'
-      preLoaderRoute: typeof ProdutosRouteImport
+      preLoaderRoute: typeof AuthenticatedProdutosRouteImport
       parentRoute: typeof rootRouteImport
     }
   }
 }
 
 const rootRouteChildren: RootRouteChildren = {
-  IndexRoute: IndexRoute,
-  AdminRoute: AdminRoute,
-  CarrinhoRoute: CarrinhoRoute,
-  ProdutosRoute: ProdutosRoute,
+  AuthenticatedAdminRoute: AuthenticatedAdminRoute,
+  AuthenticatedCarrinhoRoute: AuthenticatedCarrinhoRoute,
+  AuthenticatedProdutosRoute: AuthenticatedProdutosRoute,
+  AuthenticatedIndexRoute: AuthenticatedIndexRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
