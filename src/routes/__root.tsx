@@ -4,16 +4,18 @@ import {
   Link,
   createRootRouteWithContext,
   useRouter,
+  useNavigate,
   HeadContent,
   Scripts,
 } from "@tanstack/react-router";
-import { useEffect, type ReactNode } from "react";
-import { Heart, ShoppingBag } from "lucide-react";
+import { useEffect, useState, type ReactNode } from "react";
+import { Heart, LogOut, ShoppingBag } from "lucide-react";
 
 import appCss from "../styles.css?url";
 import { reportLovableError } from "../lib/lovable-error-reporting";
 import logo from "../assets/suneiluxo-logo.png.asset.json";
 import { ShopProvider, useShop } from "../lib/shop";
+import { supabase } from "@/integrations/supabase/client";
 
 function NotFoundComponent() {
   return (
@@ -153,6 +155,7 @@ function Header() {
             ))}
           </nav>
           <div className="flex items-center gap-3">
+            <SessionButton />
             <span className="hidden items-center gap-1 text-sm text-muted-foreground sm:flex">
               <Heart className="h-4 w-4" /> {favorites.length}
             </span>
@@ -204,8 +207,39 @@ function Footer() {
   );
 }
 
+function SessionButton() {
+  const navigate = useNavigate();
+  const [signedIn, setSignedIn] = useState(false);
+  useEffect(() => {
+    supabase.auth.getSession().then(({ data }) => setSignedIn(!!data.session));
+    const { data } = supabase.auth.onAuthStateChange((_e, s) => setSignedIn(!!s));
+    return () => data.subscription.unsubscribe();
+  }, []);
+  if (!signedIn) return null;
+  return (
+    <button
+      onClick={async () => {
+        await supabase.auth.signOut();
+        navigate({ to: "/auth", replace: true });
+      }}
+      className="inline-flex items-center gap-1 text-sm text-muted-foreground hover:text-gold"
+      title="Sair"
+    >
+      <LogOut className="h-4 w-4" />
+    </button>
+  );
+}
+
 function RootComponent() {
   const { queryClient } = Route.useRouteContext();
+  const router = useRouter();
+  useEffect(() => {
+    const { data } = supabase.auth.onAuthStateChange((event) => {
+      if (event !== "SIGNED_IN" && event !== "SIGNED_OUT" && event !== "USER_UPDATED") return;
+      router.invalidate();
+    });
+    return () => data.subscription.unsubscribe();
+  }, [router]);
 
   return (
     <QueryClientProvider client={queryClient}>

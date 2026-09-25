@@ -1,7 +1,9 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { useEffect, useState } from "react";
 import { money, useShop } from "@/lib/shop";
+import { supabase } from "@/integrations/supabase/client";
 
-export const Route = createFileRoute("/admin")({
+export const Route = createFileRoute("/_authenticated/admin")({
   head: () => ({
     meta: [
       { title: "Administração — Suneiluxo" },
@@ -15,9 +17,16 @@ export const Route = createFileRoute("/admin")({
 
 function Admin() {
   const { lastOrder, count } = useShop();
+  const [users, setUsers] = useState<string>("…");
+
+  useEffect(() => {
+    supabase.rpc("get_user_count").then(({ data, error }) => {
+      setUsers(error ? "Sem acesso" : String(data ?? 0));
+    });
+  }, []);
 
   const stats = [
-    { label: "Pedidos recentes", value: lastOrder ? "1" : "0" },
+    { label: "Utilizadores cadastrados", value: users },
     { label: "Último pedido", value: lastOrder ? money(lastOrder.total) : "—" },
     { label: "Itens no carrinho atual", value: String(count) },
     { label: "SMS", value: "Por configurar" },
