@@ -1,7 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { money, useShop } from "@/lib/shop";
 
-export const Route = createFileRoute("/admin")({
+export const Route = createFileRoute("/_authenticated/admin")({
   head: () => ({
     meta: [
       { title: "Administração — Suneiluxo" },

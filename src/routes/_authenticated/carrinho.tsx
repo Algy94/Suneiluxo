@@ -2,7 +2,7 @@ import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
 import { Minus, Plus, Trash2 } from "lucide-react";
 import { money, useShop } from "@/lib/shop";
 
-export const Route = createFileRoute("/carrinho")({
+export const Route = createFileRoute("/_authenticated/carrinho")({
   head: () => ({
     meta: [
       { title: "Carrinho — Suneiluxo" },

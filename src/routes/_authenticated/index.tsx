@@ -3,7 +3,7 @@ import { ProductCard } from "@/components/ProductCard";
 import { products, type Category } from "@/lib/shop";
 import logo from "@/assets/suneiluxo-logo.png.asset.json";
 
-export const Route = createFileRoute("/")({
+export const Route = createFileRoute("/_authenticated/")({
   head: () => ({
     meta: [
       { title: "Suneiluxo — Cabelos humanos e joias femininas" },

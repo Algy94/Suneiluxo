@@ -5,7 +5,7 @@ import { products, type Category } from "@/lib/shop";
 
 type Search = { categoria?: "Todos" | Category };
 
-export const Route = createFileRoute("/produtos")({
+export const Route = createFileRoute("/_authenticated/produtos")({
   validateSearch: (search: Record<string, unknown>): Search => {
     const c = search["categoria"];
     return typeof c === "string" && ["Todos", "Cabelos", "Joias", "Combos"].includes(c)
