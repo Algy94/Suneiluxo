@@ -99,7 +99,7 @@ function Carrinho() {
             type="button"
             onClick={() => {
               const order = checkout();
-              if (order) navigate({ to: "/admin" });
+              if (order) navigate({ to: "/" });
             }}
             className="mt-6 w-full rounded-md bg-gold px-6 py-3 text-sm uppercase tracking-widest text-primary-foreground transition hover:opacity-90"
           >
