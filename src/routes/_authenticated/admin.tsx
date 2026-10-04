@@ -1,9 +1,13 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, redirect } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
 import { money, useShop } from "@/lib/shop";
 import { supabase } from "@/integrations/supabase/client";
+import { checkIsAdmin } from "@/lib/use-is-admin";
 
 export const Route = createFileRoute("/_authenticated/admin")({
+  beforeLoad: async () => {
+    if (!(await checkIsAdmin())) throw redirect({ to: "/" });
+  },
   head: () => ({
     meta: [
       { title: "Administração — Suneiluxo" },

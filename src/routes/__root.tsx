@@ -16,6 +16,7 @@ import { reportLovableError } from "../lib/lovable-error-reporting";
 import logo from "../assets/suneiluxo-logo.png.asset.json";
 import { ShopProvider, useShop } from "../lib/shop";
 import { supabase } from "@/integrations/supabase/client";
+import { useIsAdmin } from "@/lib/use-is-admin";
 
 function NotFoundComponent() {
   return (
@@ -122,14 +123,16 @@ function RootShell({ children }: { children: ReactNode }) {
   );
 }
 
-const navLinks = [
-  { to: "/", label: "Início" },
-  { to: "/produtos", label: "Produtos" },
-  { to: "/admin", label: "Admin" },
+const allNavLinks = [
+  { to: "/", label: "Início", admin: false },
+  { to: "/produtos", label: "Produtos", admin: false },
+  { to: "/admin", label: "Admin", admin: true },
 ] as const;
 
 function Header() {
   const { count, favorites, notice } = useShop();
+  const isAdmin = useIsAdmin();
+  const navLinks = allNavLinks.filter((l) => !l.admin || isAdmin);
 
   return (
     <>
