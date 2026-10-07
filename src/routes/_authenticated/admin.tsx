@@ -13,6 +13,8 @@ export const Route = createFileRoute("/_authenticated/admin")({
       { title: "Administração — Suneiluxo" },
       { name: "description", content: "Painel de pedidos e estado do MVP Suneiluxo." },
       { property: "og:title", content: "Administração — Suneiluxo" },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary_large_image" },
       { property: "og:description", content: "Painel de pedidos da loja Suneiluxo." },
     ],
   }),

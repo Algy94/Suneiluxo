@@ -11,6 +11,7 @@ export type Product = {
   rating: number;
   stock: number;
   image: string;
+  images?: string[];
   tag?: string;
 };
 

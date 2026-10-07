@@ -15,6 +15,7 @@ import { Route as AuthenticatedIndexRouteImport } from './routes/_authenticated/
 import { Route as AuthenticatedAdminRouteImport } from './routes/_authenticated/admin'
 import { Route as AuthenticatedCarrinhoRouteImport } from './routes/_authenticated/carrinho'
 import { Route as AuthenticatedProdutosRouteImport } from './routes/_authenticated/produtos'
+import { Route as AuthenticatedProdutoProdutoIdRouteImport } from './routes/_authenticated/produto.$produtoId'
 
 const AuthenticatedRouteRoute = AuthenticatedRouteRouteImport.update({
   id: '/_authenticated',
@@ -45,6 +46,12 @@ const AuthenticatedProdutosRoute = AuthenticatedProdutosRouteImport.update({
   path: '/produtos',
   getParentRoute: () => AuthenticatedRouteRoute,
 } as any)
+const AuthenticatedProdutoProdutoIdRoute =
+  AuthenticatedProdutoProdutoIdRouteImport.update({
+    id: '/produto/$produtoId',
+    path: '/produto/$produtoId',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof AuthenticatedIndexRoute
@@ -52,6 +59,7 @@ export interface FileRoutesByFullPath {
   '/admin': typeof AuthenticatedAdminRoute
   '/carrinho': typeof AuthenticatedCarrinhoRoute
   '/produtos': typeof AuthenticatedProdutosRoute
+  '/produto/$produtoId': typeof AuthenticatedProdutoProdutoIdRoute
 }
 export interface FileRoutesByTo {
   '/auth': typeof AuthRoute
@@ -59,6 +67,7 @@ export interface FileRoutesByTo {
   '/carrinho': typeof AuthenticatedCarrinhoRoute
   '/produtos': typeof AuthenticatedProdutosRoute
   '/': typeof AuthenticatedIndexRoute
+  '/produto/$produtoId': typeof AuthenticatedProdutoProdutoIdRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -68,12 +77,15 @@ export interface FileRoutesById {
   '/_authenticated/carrinho': typeof AuthenticatedCarrinhoRoute
   '/_authenticated/produtos': typeof AuthenticatedProdutosRoute
   '/_authenticated/': typeof AuthenticatedIndexRoute
+  '/_authenticated/produto/$produtoId': typeof AuthenticatedProdutoProdutoIdRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/auth' | '/admin' | '/carrinho' | '/produtos'
+  fullPaths:
+    '/' | '/auth' | '/admin' | '/carrinho' | '/produtos' | '/produto/$produtoId'
   fileRoutesByTo: FileRoutesByTo
-  to: '/auth' | '/admin' | '/carrinho' | '/produtos' | '/'
+  to:
+    '/auth' | '/admin' | '/carrinho' | '/produtos' | '/' | '/produto/$produtoId'
   id:
     | '__root__'
     | '/_authenticated'
@@ -82,6 +94,7 @@ export interface FileRouteTypes {
     | '/_authenticated/carrinho'
     | '/_authenticated/produtos'
     | '/_authenticated/'
+    | '/_authenticated/produto/$produtoId'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -133,6 +146,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedProdutosRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
+    '/_authenticated/produto/$produtoId': {
+      id: '/_authenticated/produto/$produtoId'
+      path: '/produto/$produtoId'
+      fullPath: '/produto/$produtoId'
+      preLoaderRoute: typeof AuthenticatedProdutoProdutoIdRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
   }
 }
 
@@ -141,6 +161,7 @@ interface AuthenticatedRouteRouteChildren {
   AuthenticatedCarrinhoRoute: typeof AuthenticatedCarrinhoRoute
   AuthenticatedProdutosRoute: typeof AuthenticatedProdutosRoute
   AuthenticatedIndexRoute: typeof AuthenticatedIndexRoute
+  AuthenticatedProdutoProdutoIdRoute: typeof AuthenticatedProdutoProdutoIdRoute
 }
 
 const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
@@ -148,6 +169,7 @@ const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
   AuthenticatedCarrinhoRoute: AuthenticatedCarrinhoRoute,
   AuthenticatedProdutosRoute: AuthenticatedProdutosRoute,
   AuthenticatedIndexRoute: AuthenticatedIndexRoute,
+  AuthenticatedProdutoProdutoIdRoute: AuthenticatedProdutoProdutoIdRoute,
 }
 
 const AuthenticatedRouteRouteWithChildren =

@@ -10,6 +10,8 @@ export const Route = createFileRoute("/auth")({
       { title: "Criar conta — Suneiluxo" },
       { name: "description", content: "Cadastre-se na Suneiluxo para comprar cabelos e joias." },
       { property: "og:title", content: "Criar conta — Suneiluxo" },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary_large_image" },
       { property: "og:description", content: "Cadastre-se ou entre na sua conta Suneiluxo." },
     ],
   }),

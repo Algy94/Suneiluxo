@@ -8,6 +8,8 @@ export const Route = createFileRoute("/_authenticated/carrinho")({
       { title: "Carrinho — Suneiluxo" },
       { name: "description", content: "Reveja os seus produtos e finalize a compra na Suneiluxo." },
       { property: "og:title", content: "Carrinho — Suneiluxo" },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary_large_image" },
       { property: "og:description", content: "Finalize a sua compra de cabelos e joias." },
     ],
   }),
