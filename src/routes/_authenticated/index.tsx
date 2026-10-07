@@ -13,6 +13,8 @@ export const Route = createFileRoute("/_authenticated/")({
           "Loja Suneiluxo: cabelos humanos, perucas premium e joias douradas com entrega em Moçambique.",
       },
       { property: "og:title", content: "Suneiluxo — Cabelos humanos e joias femininas" },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary_large_image" },
       {
         property: "og:description",
         content: "Peças selecionadas para transformar o seu estilo. Entrega em Moçambique.",

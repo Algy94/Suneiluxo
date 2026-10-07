@@ -20,6 +20,8 @@ export const Route = createFileRoute("/_authenticated/produtos")({
         content: "Cabelos humanos, perucas, joias e combos Suneiluxo com preços em meticais.",
       },
       { property: "og:title", content: "Catálogo — Suneiluxo" },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary_large_image" },
       {
         property: "og:description",
         content: "Explore cabelos, joias e combos exclusivos da Suneiluxo.",
